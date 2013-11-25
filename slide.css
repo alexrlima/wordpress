@@ -1,0 +1,16 @@
+Css do slide
+
+/*Slide*/
+#homeSlider{display:block; position:relative; padding-top:10px;}
+#homeSlider li {list-style:none;}
+#homeSliderConteudo {width:940px; height:300px; overflow:hidden;}
+.homeSliderImg {float:left; width:940px; height:300px;}
+.homeSliderImg img{width:940px; height:300px;}
+.homeSliderRolagem {display:block; position:absolute; width:57px; height:57px; top:170px; cursor:pointer;}
+#homeSliderRolagemEsq {background-image:url('img/slider-esq.png'); background-repeat:no-repeat; width:59px; height:59px;}
+#homeSliderRolagemDir {background-image:url('img/slider-dir.png'); background-repeat:no-repeat; width:59px; height:59px; margin-left:894px;}
+#homeSliderIndice {width:100%; height:20px; position:relative; margin-top:-20px; text-align:center;}
+.homeSliderInd {width:10px; height:10px; display:inline-block; background-color:#fff; border:1px solid #000; border-radius:5px; cursor:pointer;}
+.homeSliderInd:hover {background-color:#0072C6;}
+.homeSliderIndAtivo {background-color:#000 !important;}
+/*Fim do slide*/
