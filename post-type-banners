@@ -1,0 +1,83 @@
+Este arquivo contém o código de criação de um post-type para slide chamado banners e o código que deve ser inserido no
+functions.php para o funcionamento correto e ordenação do menu no dashboard.
+
+//post-type-banners.php
+
+<?php
+
+/**
+ * Adicionamos uma acção no inicio do carregamento do WordPress
+ * através da função add_action( 'init' )
+ */
+add_action( 'init', 'create_post_type_banners' );
+
+/**
+ * Esta é a função que é chamada pelo add_action()
+ */
+function create_post_type_banners() {
+
+    /**
+     * Labels customizados para o tipo de post
+     * 
+     */
+    $labels = array(
+	    'name' => _x('Banners', 'post type general name'),
+	    'singular_name' => _x('Banners', 'post type singular name'),
+	    'add_new' => _x('Adicionar novo', 'Banner'),
+	    'add_new_item' => __('Adicionar novo Banner'),
+	    'edit_item' => __('Editar Banner'),
+	    'new_item' => __('Novo Banner'),
+	    'all_items' => __('Todos os Banners'),
+	    'view_item' => __('Ver Banner'),
+	    'search_items' => __('Encontrar Banners'),
+	    'not_found' =>  __('Nenhum Banner Encontrado'),
+	    'not_found_in_trash' => __('Nenhum Banner Encontrado na Lixeira'),
+	    'parent_item_colon' => '',
+	    'menu_name' => 'Banners'
+    );
+    
+    /**
+     * Registamos o tipo de post film através desta função
+     * passando-lhe os labels e parâmetros de controlo.
+     */
+    register_post_type( 'Banners', array(
+	    'labels' => $labels,
+	    'public' => true,
+	    'publicly_queryable' => true,
+	    'show_ui' => true,
+	    'show_in_menu' => true,
+	    'has_archive' => 'Banners',
+	    'rewrite' => array(
+		 'slug' => 'banner',
+		 'with_front' => false,
+	    ),
+	    'capability_type' => 'post',
+	    'has_archive' => false,
+	    'hierarchical' => false,
+	    'menu_position' => null,
+	    'supports' => array('title')
+	    )
+    );
+    
+        register_taxonomy_for_object_type( 'tags', 'banners' );
+	flush_rewrite_rules();
+    
+}
+
+//Functions.php
+//incs no código abaixo é a pasta onde o post-type-banners.php está salvo.
+include('incs/post-type-banners.php');
+
+
+//Como ordenar os post-type no dashboard
+// Ordenar os itens do Menu!
+function custom_menu_order($menu_ord) {
+       if (!$menu_ord) return true;
+       return array(
+        'index.php',
+	 	'edit.php', //edit.php é o post comum 
+		'edit.php?post_type=banners'
+    );
+   }
+add_filter('custom_menu_order', 'custom_menu_order');
+add_filter('menu_order', 'custom_menu_order');
